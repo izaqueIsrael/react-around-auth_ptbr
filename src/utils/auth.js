@@ -13,30 +13,50 @@ class Auth {
 
   registerUser(userData) {
     return fetch(`${this.link}/signup`, {
-      method: "POST",
+      method: 'POST',
       headers: this.headers,
       body: JSON.stringify(userData)
     })
       .then((res) => this._checkTheApiResponse(res))
       .then((data) => {
-        localStorage.setItem("jwt", data.token);
-        return this.checkToken(data.token);
+        localStorage.setItem('jwt', data.token);
+        return this.validateUserToken(data.token);
       });
   }
 
   validateUserToken(token) {
     return fetch(`${this.link}/users/me`, {
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
     })
       .then((res) => this._checkTheApiResponse(res));
   }
+
+  userLogin(loginData) {
+    return fetch(`${this.link}/signin`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(loginData)
+    })
+      .then((res) => this._checkTheApiResponse(res))
+      .then((data) => {
+        localStorage.setItem('jwt', data.token);
+        return this.validateUserToken(data.token);
+      })
+  }
 };
 
-export default auth = new Auth({
+const auth = new Auth({
   link: 'https://register.nomoreparties.co',
-  headers
-})
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+export default auth;
