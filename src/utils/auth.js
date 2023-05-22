@@ -1,7 +1,6 @@
 class Auth {
-  constructor({ link, headers }) {
+  constructor({ link }) {
     this.link = link;
-    this.headers = headers;
   }
 
   _checkTheApiResponse(res) {
@@ -9,19 +8,6 @@ class Auth {
       return Promise.reject(`${res.status} error!`);
     }
     return res.json();
-  }
-
-  registerUser(userData) {
-    return fetch(`${this.link}/signup`, {
-      method: 'POST',
-      headers: this.headers,
-      body: JSON.stringify(userData)
-    })
-      .then((res) => this._checkTheApiResponse(res))
-      .then((data) => {
-        localStorage.setItem('jwt', data.token);
-        return this.validateUserToken(data.token);
-      });
   }
 
   validateUserToken(token) {
@@ -35,14 +21,26 @@ class Auth {
       .then((res) => this._checkTheApiResponse(res));
   }
 
-  userLogin(loginData) {
+  registerUser({ newEmail, newPassword }) {
+    return fetch(`${this.link}/signup`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ password: newPassword, email: newEmail })
+    })
+      .then((res) => this._checkTheApiResponse(res))
+  }
+
+  userLogin({ newEmail, newPassword }) {
     return fetch(`${this.link}/signin`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(loginData)
+      body: JSON.stringify({ password: newPassword, email: newEmail })
     })
       .then((res) => this._checkTheApiResponse(res))
       .then((data) => {
@@ -54,9 +52,6 @@ class Auth {
 
 const auth = new Auth({
   link: 'https://register.nomoreparties.co',
-  headers: {
-    'Content-Type': 'application/json',
-  },
 });
 
 export default auth;

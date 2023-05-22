@@ -7,6 +7,8 @@ import likeButton from '../images/like.svg';
 import logo from '../images/logo.svg';
 import trashIcon from '../images/trash.svg';
 import likeButtonActived from '../images/union.png';
-import pen from '../images/pen.svg'
+import pen from '../images/pen.svg';
+import failIcon from '../images/fail.svg';
+import sucessIcon from '../images/sucess.svg';
 
-export { buttonAddIcon, closeIcon, buttonEditIcon, profileImage, likeButton, logo, trashIcon, likeButtonActived, pen };
+export { sucessIcon, failIcon, buttonAddIcon, closeIcon, buttonEditIcon, profileImage, likeButton, logo, trashIcon, likeButtonActived, pen };

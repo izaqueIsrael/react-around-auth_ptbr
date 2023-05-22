@@ -1,139 +1,90 @@
 import React, { useState, useEffect } from 'react';
+import { createBrowserRouter, RouterProvider, Link } from 'react-router-dom';
+import { sucessIcon, failIcon } from '../utils/constants';
+import auth from '../utils/auth';
 import Header from './Header';
-import Main from './Main';
-import EditProfilePopup from './EditProfilePopup';
-import AddPlacePopup from './AddPlacePopup';
-import EditAvatarPopup from './EditAvatarPopup';
-import DeletePostModal from './DeletePostModal';
-import ImagePopup from './ImagePopup';
-import api from '../utils/api'
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import useApp from '../hooks/UseApp';
-import Footer from './Footer';
+import Home from './Home';
+import Login from './Login';
+import Register from './Register';
+import ProtectedRoute from './ProtectedRoute';
+import InfoTooltip from './InfoTooltip';
 
 function App() {
-  // Current User
-  const { update, setUpdate, currentUser, setCurrentUser, cards, setCards, currentCard, setCurrentCard, editIsOpen, setEditIsOpen, addIsOpen, setAddIsOpen, avatarModalIsOpen, setAvatarModalIsOpen, deleteIsOpen, setDeleteIsOpen, imageModalIsOpen, setImageModalIsOpen } = useApp();
-  const handleCurrentUser = (user) => setCurrentUser(user);
-  const handleSetCards = (cards) => setCards(cards);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-    Promise.all([api.getUserInfo(), api.getUserCards()])
-      .then(([user, cards]) => {
-        setCurrentUser(user);
-        setCards(cards);
+    const token = localStorage.getItem('jwt');
+    if (token) {
+      auth.validateUserToken(token)
+        .then(() => setLoggedIn(true))
+        .catch(() => setLoggedIn(false));
+    }
+  }, [loggedIn]);
+
+  // modal status
+  const [requisitionStatus, setRequisitionStatus] = useState(false);
+  const [statsModal, setStatsIcon] = useState(false);
+  const sucessText = 'Vitória, sua requisição foi um sucesso';
+  const failText = 'Ops, algo saiu deu errado! Por favor, tente novamente.';
+
+  // api
+  const login = async (userData) => {
+    await auth.userLogin({ newPassword: userData.password.value, newEmail: userData.mail.value })
+      .then(() => {
+        setStatsIcon(true);
+        setLoggedIn(true);
       })
-      .catch(err => err)
-  }, [update]);
-
-  // Edit Profile Modal Functions
-  const handleEditProfileClick = () => setEditIsOpen(!editIsOpen);
-
-  const editingProfile = async (newProfile) => {
-    await api.setUserInfo({ newName: newProfile.name.value, newAbout: newProfile.status.value });
-    setUpdate(!update);
+      .catch(() => {
+        setRequisitionStatus(!requisitionStatus);
+        setStatsIcon(false);
+      })
   }
 
-  // Add Post Modal Functions
-  const handleAddPlaceClick = () => setAddIsOpen(!addIsOpen);
-
-  const addingCard = async (newCard) => {
-    await api.updateCard({ newName: newCard.title.value, newLink: newCard.link.value });
-    setUpdate(!update);
+  const register = async (userData) => {
+    await auth.registerUser({ newPassword: userData.password.value, newEmail: userData.mail.value })
+      .then(() => {
+        setStatsIcon(true);
+        setRequisitionStatus(!requisitionStatus);
+      })
+      .catch(() => {
+        setStatsIcon(false);
+        setRequisitionStatus(!requisitionStatus);
+      })
   }
 
-  // Change Avatar Modal Functions
-  const handleEditAvatarClick = () => setAvatarModalIsOpen(!avatarModalIsOpen);
-
-  const changingAvatar = async (newAvatar) => {
-    await api.setUserAvatar(newAvatar.avatar.value);
-    setUpdate(!update);
-  }
-
-  // Delete Post Modal
-  const handleDeleteCardClick = () => setDeleteIsOpen(!deleteIsOpen);
-  const handleDeleteCard = (card) => setCurrentCard(card);
-
-  const deletingCard = async (card) => {
-    await api.deleteCard(card);
-    setUpdate(!update);
-  }
-
-  // Image Modal
-  const handleCardClick = (cardImage, cardText) => {
-    setImageModalIsOpen(!imageModalIsOpen);
-    setSelectedCard({ link: cardImage.current.src, text: cardText.current.textContent });
-  }
-
-  // Card
-  const [selectedCard, setSelectedCard] = useState({ text: '', link: '' });
-
-  const liking = async (like) => {
-    await api.addLike(like);
-    setUpdate(!update);
-  }
-
-  const disliking = async (dislike) => {
-    await api.removeLike(dislike);
-    setUpdate(!update);
-  }
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <ProtectedRoute loggedIn={loggedIn} children={<Home />} />,
+    },
+    {
+      path: '/signin',
+      element: <Login setSend={login} loggedIn={loggedIn} />,
+    },
+    {
+      path: 'signup',
+      element: <Register setSend={register} />,
+    },
+    {
+      path: '/1',
+      element: <Home />
+    }
+  ]);
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
+    <>
       <Header />
-      <Main
-        onEditProfileClick={handleEditProfileClick}
-        onAddPlaceClick={handleAddPlaceClick}
-        onEditAvatarClick={handleEditAvatarClick}
-        handleCardClick={handleCardClick}
-        handleDeleteCardClick={handleDeleteCardClick}
-        cards={cards}
-        handleDeleteCard={handleDeleteCard}
-        liking={liking}
-        disliking={disliking}
+      <React.StrictMode>
+        <RouterProvider router={router} />
+      </React.StrictMode>
+      <InfoTooltip
+        className={`${requisitionStatus ? 'popup popup-image' : 'popup popup_closed popup-image'}`}
+        popupIsOpen={requisitionStatus}
+        handleClose={setRequisitionStatus}
+        modalIcon={`${statsModal ? sucessIcon : failIcon}`}
+        modalText={`${statsModal ? sucessText : failText}`}
       />
-      <EditProfilePopup
-        className={`${editIsOpen ? 'popup popup-image' : 'popup popup_closed popup-image'}`}
-        editIsOpen={editIsOpen}
-        setEditIsOpen={setEditIsOpen}
-        handleCurrentUser={handleCurrentUser}
-        editingProfile={editingProfile}
-      />
-      <AddPlacePopup
-        className={`${addIsOpen ? 'popup popup-image' : 'popup popup_closed popup-image'}`}
-        addIsOpen={addIsOpen}
-        setAddIsOpen={setAddIsOpen}
-        handleAddPlaceClick={handleAddPlaceClick}
-        handleSetCards={handleSetCards}
-        addingCard={addingCard}
-      />
-      <EditAvatarPopup
-        className={`${avatarModalIsOpen ? 'popup popup-image' : 'popup popup_closed popup-image'}`}
-        avatarModalIsOpen={avatarModalIsOpen}
-        onEditAvatarClick={setAvatarModalIsOpen}
-        handleEditAvatarClick={handleEditAvatarClick}
-        handleCurrentUser={handleCurrentUser}
-        changingAvatar={changingAvatar}
-      />
-      <ImagePopup
-        className={`${imageModalIsOpen ? 'popup popup-image' : 'popup popup_closed popup-image'}`}
-        imageModalIsOpen={imageModalIsOpen}
-        setImageModalIsOpen={setImageModalIsOpen}
-        handleCardClick={handleCardClick}
-        selectedCard={selectedCard}
-      />
-      <DeletePostModal
-        className={`${deleteIsOpen ? 'popup popup-image popup_delete' : 'popup popup_closed popup-image popup_delete'}`}
-        deleteIsOpen={deleteIsOpen}
-        setDeleteIsOpen={setDeleteIsOpen}
-        currentCard={currentCard}
-        handleSetCards={handleSetCards}
-        handleDeleteCardClick={handleDeleteCardClick}
-        deletingCard={deletingCard}
-      />
-      <Footer />
-    </CurrentUserContext.Provider>
+    </>
   );
 }
-
 export default App;

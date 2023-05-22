@@ -91,3 +91,27 @@
 @import url(./blocks/profile/__pictures/profile__pirctures);
 @import url(./blocks/profile/__pictures/cover/cover);
 @import url(./blocks/popup/_delete/popup_delete.css);
+
+/* source */
+@import url(./blocks/source/source.css);
+@import url(./blocks/source/__title/source__title.css);
+@import url(./blocks/source/__form/source__form.css);
+@import url(./blocks/source/__input/source__input.css);
+@import url(./blocks/source/__text/source__text.css);
+@import url(./blocks/source/__button/source__button.css);
+@import url(./blocks/source/__button/__text/source__button__text.css);
+@import url(./blocks/source/__link/source__link.css);
+
+.modal__status {
+  display: flex;
+  align-self: center;
+  width: 7.5rem;
+}
+
+.modal__text {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 900;
+  text-align: center;
+  color: black;
+}
