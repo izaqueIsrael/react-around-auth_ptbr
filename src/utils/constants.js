@@ -10,5 +10,6 @@ import likeButtonActived from '../images/union.png';
 import pen from '../images/pen.svg';
 import failIcon from '../images/fail.svg';
 import sucessIcon from '../images/sucess.svg';
+import hamburguer from '../images/hamburguer.svg';
 
-export { sucessIcon, failIcon, buttonAddIcon, closeIcon, buttonEditIcon, profileImage, likeButton, logo, trashIcon, likeButtonActived, pen };
+export { hamburguer, sucessIcon, failIcon, buttonAddIcon, closeIcon, buttonEditIcon, profileImage, likeButton, logo, trashIcon, likeButtonActived, pen };

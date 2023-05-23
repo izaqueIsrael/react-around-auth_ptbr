@@ -1,5 +1,6 @@
 .profile__pictures {
   position: relative;
+  height: auto;
   z-index: 1;
 }
 

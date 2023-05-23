@@ -45,6 +45,7 @@ class Auth {
       .then((res) => this._checkTheApiResponse(res))
       .then((data) => {
         localStorage.setItem('jwt', data.token);
+        localStorage.setItem('email', newEmail);
         return this.validateUserToken(data.token);
       })
   }

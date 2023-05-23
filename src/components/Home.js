@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import Header from './Header';
 import Main from './Main';
 import EditProfilePopup from './EditProfilePopup';
 import AddPlacePopup from './AddPlacePopup';
@@ -10,7 +11,7 @@ import api from '../utils/api'
 import useApp from '../hooks/UseApp';
 import Footer from './Footer';
 
-function Home() {
+function Home({ logout }) {
   // Current User
   const { update, setUpdate, currentUser, setCurrentUser, cards, setCards, currentCard, setCurrentCard, editIsOpen, setEditIsOpen, addIsOpen, setAddIsOpen, avatarModalIsOpen, setAvatarModalIsOpen, deleteIsOpen, setDeleteIsOpen, imageModalIsOpen, setImageModalIsOpen } = useApp();
   const handleCurrentUser = (user) => setCurrentUser(user);
@@ -79,6 +80,7 @@ function Home() {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
+      <Header linkText='Sair' logout={logout} place='home' />
       <Main
         onEditProfileClick={handleEditProfileClick}
         onAddPlaceClick={handleAddPlaceClick}

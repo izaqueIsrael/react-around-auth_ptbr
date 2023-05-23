@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { createBrowserRouter, RouterProvider, Link } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { sucessIcon, failIcon } from '../utils/constants';
 import auth from '../utils/auth';
-import Header from './Header';
 import Home from './Home';
 import Login from './Login';
 import Register from './Register';
@@ -10,6 +9,7 @@ import ProtectedRoute from './ProtectedRoute';
 import InfoTooltip from './InfoTooltip';
 
 function App() {
+  // loggin
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -20,6 +20,12 @@ function App() {
         .catch(() => setLoggedIn(false));
     }
   }, [loggedIn]);
+
+  const logout = () => {
+    localStorage.removeItem('jwt');
+    localStorage.removeItem('email');
+    setLoggedIn(false);
+  }
 
   // modal status
   const [requisitionStatus, setRequisitionStatus] = useState(false);
@@ -55,7 +61,7 @@ function App() {
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <ProtectedRoute loggedIn={loggedIn} children={<Home />} />,
+      element: <ProtectedRoute loggedIn={loggedIn} children={<Home logout={logout} />} />,
     },
     {
       path: '/signin',
@@ -65,15 +71,10 @@ function App() {
       path: 'signup',
       element: <Register setSend={register} />,
     },
-    {
-      path: '/1',
-      element: <Home />
-    }
   ]);
 
   return (
     <>
-      <Header />
       <React.StrictMode>
         <RouterProvider router={router} />
       </React.StrictMode>
