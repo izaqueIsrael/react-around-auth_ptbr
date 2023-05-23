@@ -14,7 +14,7 @@ function Main({ onEditProfileClick, onAddPlaceClick, onEditAvatarClick, handleCa
           <div className='profile__container'>
             <div className='profile__pictures'>
               <img className='profile__image' src={currentUser.avatar} onClick={onEditAvatarClick} alt={currentUser.name} />
-              <div className='cover' />
+              <div className='cover' onClick={onEditAvatarClick} />
             </div>
             <div className='profile__titles'>
               <div className='profile__content'>
