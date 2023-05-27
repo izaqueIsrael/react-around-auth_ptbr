@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/izaqueIsrael/react-around-auth_ptbr/static/css/main.dd4be1f0.css",
-    "main.js": "/izaqueIsrael/react-around-auth_ptbr/static/js/main.e9d8d7f6.js",
-    "static/js/787.f003f1ad.chunk.js": "/izaqueIsrael/react-around-auth_ptbr/static/js/787.f003f1ad.chunk.js",
-    "static/media/Garithos_portrait.webp": "/izaqueIsrael/react-around-auth_ptbr/static/media/Garithos_portrait.bfcfee8d4c65804b7435.webp",
-    "static/media/logo.svg": "/izaqueIsrael/react-around-auth_ptbr/static/media/logo.66cff89119b58975ea644f9d7f47a8c5.svg",
-    "static/media/like.svg": "/izaqueIsrael/react-around-auth_ptbr/static/media/like.99043841e8bec6b9df2129636ccf9f8c.svg",
-    "index.html": "/izaqueIsrael/react-around-auth_ptbr/index.html",
-    "static/media/modal__button_delete": "/izaqueIsrael/react-around-auth_ptbr/static/media/modal__button_delete.e0300081308c1b339184",
-    "static/media/modal__title_delete": "/izaqueIsrael/react-around-auth_ptbr/static/media/modal__title_delete.015dbe8ab4c00c0fc579",
-    "static/media/trash.svg": "/izaqueIsrael/react-around-auth_ptbr/static/media/trash.a85cc5e25106301e909ec4b962980e9e.svg",
-    "static/media/fail.svg": "/izaqueIsrael/react-around-auth_ptbr/static/media/fail.df8eddf661ff88f2d0efd3d570d14309.svg",
-    "static/media/sucess.svg": "/izaqueIsrael/react-around-auth_ptbr/static/media/sucess.1b6082f862eac35e2514460237d96ecc.svg",
-    "static/media/hamburguer.svg": "/izaqueIsrael/react-around-auth_ptbr/static/media/hamburguer.a46d5c1c53c02d60fc8020a980d10651.svg",
-    "static/media/pen.svg": "/izaqueIsrael/react-around-auth_ptbr/static/media/pen.a086f758840ae814ecdece4799d2cf40.svg",
-    "main.dd4be1f0.css.map": "/izaqueIsrael/react-around-auth_ptbr/static/css/main.dd4be1f0.css.map",
-    "main.e9d8d7f6.js.map": "/izaqueIsrael/react-around-auth_ptbr/static/js/main.e9d8d7f6.js.map",
-    "787.f003f1ad.chunk.js.map": "/izaqueIsrael/react-around-auth_ptbr/static/js/787.f003f1ad.chunk.js.map"
+    "main.css": "/static/css/main.9dbd0399.css",
+    "main.js": "/static/js/main.95db9b69.js",
+    "static/js/787.f003f1ad.chunk.js": "/static/js/787.f003f1ad.chunk.js",
+    "static/media/Garithos_portrait.webp": "/static/media/Garithos_portrait.bfcfee8d4c65804b7435.webp",
+    "static/media/logo.svg": "/static/media/logo.66cff89119b58975ea644f9d7f47a8c5.svg",
+    "static/media/like.svg": "/static/media/like.99043841e8bec6b9df2129636ccf9f8c.svg",
+    "static/media/modal__button_delete": "/static/media/modal__button_delete.e0300081308c1b339184",
+    "static/media/modal__title_delete": "/static/media/modal__title_delete.015dbe8ab4c00c0fc579",
+    "index.html": "/index.html",
+    "static/media/trash.svg": "/static/media/trash.a85cc5e25106301e909ec4b962980e9e.svg",
+    "static/media/fail.svg": "/static/media/fail.df8eddf661ff88f2d0efd3d570d14309.svg",
+    "static/media/sucess.svg": "/static/media/sucess.1b6082f862eac35e2514460237d96ecc.svg",
+    "static/media/hamburguer.svg": "/static/media/hamburguer.a46d5c1c53c02d60fc8020a980d10651.svg",
+    "static/media/pen.svg": "/static/media/pen.a086f758840ae814ecdece4799d2cf40.svg",
+    "main.9dbd0399.css.map": "/static/css/main.9dbd0399.css.map",
+    "main.95db9b69.js.map": "/static/js/main.95db9b69.js.map",
+    "787.f003f1ad.chunk.js.map": "/static/js/787.f003f1ad.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.dd4be1f0.css",
-    "static/js/main.e9d8d7f6.js"
+    "static/css/main.9dbd0399.css",
+    "static/js/main.95db9b69.js"
   ]
 }
