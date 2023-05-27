@@ -1,6 +1,7 @@
 {
   "name": "react-around-auth_ptbr",
   "version": "0.1.0",
+  "homepage": "https://izaqueisrael.github.io/react-around-auth_ptbr",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
@@ -20,7 +21,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "react-scripts build && gh-pages -d build --repo=https://github.com/izaqueIsrael/react-around-auth_ptbr.git --add ./"
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
