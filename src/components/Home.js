@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import React, { useState } from 'react';
 import Header from './Header';
 import Main from './Main';
 import EditProfilePopup from './EditProfilePopup';
@@ -7,80 +6,39 @@ import AddPlacePopup from './AddPlacePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import DeletePostModal from './DeletePostModal';
 import ImagePopup from './ImagePopup';
-import api from '../utils/api'
 import useApp from '../hooks/UseApp';
 import Footer from './Footer';
 
-function Home({ logout }) {
+function Home({ logout, email, editingProfile, addingCard, changingAvatar, deletingCard, liking, disliking, setCurrentUser, cards, setCards }) {
   // Current User
-  const { update, setUpdate, currentUser, setCurrentUser, cards, setCards, currentCard, setCurrentCard, editIsOpen, setEditIsOpen, addIsOpen, setAddIsOpen, avatarModalIsOpen, setAvatarModalIsOpen, deleteIsOpen, setDeleteIsOpen, imageModalIsOpen, setImageModalIsOpen } = useApp();
+  const { currentCard, setCurrentCard, editIsOpen, setEditIsOpen, addIsOpen, setAddIsOpen, avatarModalIsOpen, setAvatarModalIsOpen, deleteIsOpen, setDeleteIsOpen, imageModalIsOpen, setImageModalIsOpen } = useApp();
   const handleCurrentUser = (user) => setCurrentUser(user);
   const handleSetCards = (cards) => setCards(cards);
-
-  useEffect(() => {
-    Promise.all([api.getUserInfo(), api.getUserCards()])
-      .then(([user, cards]) => {
-        setCurrentUser(user);
-        setCards(cards);
-      })
-      .catch(err => err)
-  }, [update]);
 
   // Edit Profile Modal Functions
   const handleEditProfileClick = () => setEditIsOpen(!editIsOpen);
 
-  const editingProfile = async (newProfile) => {
-    await api.setUserInfo({ newName: newProfile.name.value, newAbout: newProfile.status.value });
-    setUpdate(!update);
-  }
-
   // Add Post Modal Functions
   const handleAddPlaceClick = () => setAddIsOpen(!addIsOpen);
 
-  const addingCard = async (newCard) => {
-    await api.updateCard({ newName: newCard.title.value, newLink: newCard.link.value });
-    setUpdate(!update);
-  }
-
   // Change Avatar Modal Functions
   const handleEditAvatarClick = () => setAvatarModalIsOpen(!avatarModalIsOpen);
-
-  const changingAvatar = async (newAvatar) => {
-    await api.setUserAvatar(newAvatar.avatar.value);
-    setUpdate(!update);
-  }
 
   // Delete Post Modal
   const handleDeleteCardClick = () => setDeleteIsOpen(!deleteIsOpen);
   const handleDeleteCard = (card) => setCurrentCard(card);
 
-  const deletingCard = async (card) => {
-    await api.deleteCard(card);
-    setUpdate(!update);
-  }
-
   // Image Modal
+  const [selectedCard, setSelectedCard] = useState({ text: '', link: '' });
+
   const handleCardClick = (cardImage, cardText) => {
     setImageModalIsOpen(!imageModalIsOpen);
     setSelectedCard({ link: cardImage.current.src, text: cardText.current.textContent });
   }
 
-  // Card
-  const [selectedCard, setSelectedCard] = useState({ text: '', link: '' });
-
-  const liking = async (like) => {
-    await api.addLike(like);
-    setUpdate(!update);
-  }
-
-  const disliking = async (dislike) => {
-    await api.removeLike(dislike);
-    setUpdate(!update);
-  }
-
   return (
-    <CurrentUserContext.Provider value={currentUser}>
-      <Header linkText='Sair' logout={logout} place='home' />
+    <>
+      <Header linkText='Sair' logout={logout} place='home' email={email} />
       <Main
         onEditProfileClick={handleEditProfileClick}
         onAddPlaceClick={handleAddPlaceClick}
@@ -112,7 +70,6 @@ function Home({ logout }) {
         avatarModalIsOpen={avatarModalIsOpen}
         onEditAvatarClick={setAvatarModalIsOpen}
         handleEditAvatarClick={handleEditAvatarClick}
-        handleCurrentUser={handleCurrentUser}
         changingAvatar={changingAvatar}
       />
       <ImagePopup
@@ -132,7 +89,7 @@ function Home({ logout }) {
         deletingCard={deletingCard}
       />
       <Footer />
-    </CurrentUserContext.Provider>
+    </>
   );
 }
 

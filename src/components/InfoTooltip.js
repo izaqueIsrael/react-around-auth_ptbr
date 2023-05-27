@@ -3,8 +3,7 @@ import closeButton from '../images/close.png';
 
 function InfoTooltip({ className, popupIsOpen, handleClose, modalIcon, modalText }) {
   const handleCloseModal = () => handleClose();
-  const handleModalOnKeyDown = e => e.key === 'Escape' ? handleClose(false) : null;
-
+  const handleModalOnKeyDown = e => e.key === 'Escape' && handleClose(false);
   return (
     <>
       <div className={className} tabIndex={0} onKeyDown={handleModalOnKeyDown}>

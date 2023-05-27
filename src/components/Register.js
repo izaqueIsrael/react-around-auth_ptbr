@@ -14,9 +14,9 @@ function Register({ setSend }) {
       <section className='source'>
         <h1 className='title source__title'>Inscrever-se</h1>
         <form className='form source__form' ref={form}>
-          <input className='source__input source__text' placeholder='E-mail' type='email' id='mail' required></input>
-          <input className='source__input source__text' placeholder='Senha' type='password' id='password' required></input>
-          <button className='source__button source__button__text' onClick={formSubmit}>Inscrever-se</button>
+          <input className='source__input source__text' placeholder='E-mail' type='email' id='mail' autoComplete='email' required></input>
+          <input className='source__input source__text' placeholder='Senha' type='password' id='password' autoComplete='current-password' required></input>
+          <button className='button source__button source__button__text' onClick={formSubmit}>Inscrever-se</button>
           <Link className='subtitle source__link' to='/signin'>Já é um membro? Faça o login aqui!</Link>
         </form>
       </section>

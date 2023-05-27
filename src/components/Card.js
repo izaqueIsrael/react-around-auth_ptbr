@@ -9,7 +9,10 @@ function Card({ card, handleCardClick, handleDeleteCardClick, handleDeleteCard, 
   const [isLiked, setIsLiked] = useState(likes.some(i => i._id === currentUser._id));
   const { cardImage, cardText, deleteButton, likeButton } = useCard();
 
-  const handleDelete = () => (handleDeleteCardClick(), handleDeleteCard(_id));
+  const handleDelete = () => {
+    handleDeleteCardClick();
+    handleDeleteCard(_id);
+  }
   const handleClick = () => handleCardClick(cardImage, cardText);
   const checkOwner = () => (owner._id !== currentUser._id && deleteButton.current) && deleteButton.current.remove();
   const handleCardLike = () => isLiked ? isDisliking() : isLiking();

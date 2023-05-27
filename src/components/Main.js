@@ -4,7 +4,6 @@ import addButton from '../images/add.png';
 import Card from './Card';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-
 function Main({ onEditProfileClick, onAddPlaceClick, onEditAvatarClick, handleCardClick, handleDeleteCardClick, cards, handleDeleteCard, liking, disliking }) {
   const currentUser = useContext(CurrentUserContext);
   return (

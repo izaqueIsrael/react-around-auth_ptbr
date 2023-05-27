@@ -3,7 +3,7 @@ import PopupWithForm from './PopupWithForm';
 
 function DeletePostModal({ className, deleteIsOpen, setDeleteIsOpen, currentCard, handleSetCards, handleDeleteCardClick, deletingCard }) {
   const handleCloseModal = () => handleDeleteCardClick();
-  const handleModalOnKeyDown = e => e.key === 'Escape' ? setDeleteIsOpen(false) : null;
+  const handleModalOnKeyDown = e => e.key === 'Escape' && setDeleteIsOpen(false);
 
   return (
     <PopupWithForm

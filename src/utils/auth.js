@@ -30,7 +30,7 @@ class Auth {
       },
       body: JSON.stringify({ password: newPassword, email: newEmail })
     })
-      .then((res) => this._checkTheApiResponse(res))
+      .then((res) => this._checkTheApiResponse(res));
   }
 
   userLogin({ newEmail, newPassword }) {
@@ -45,14 +45,11 @@ class Auth {
       .then((res) => this._checkTheApiResponse(res))
       .then((data) => {
         localStorage.setItem('jwt', data.token);
-        localStorage.setItem('email', newEmail);
         return this.validateUserToken(data.token);
-      })
+      });
   }
 };
 
-const auth = new Auth({
-  link: 'https://register.nomoreparties.co',
-});
+const auth = new Auth({ link: 'https://register.nomoreparties.co' });
 
 export default auth;

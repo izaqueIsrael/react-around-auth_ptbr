@@ -2,19 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { hamburguer, logo } from '../utils/constants';
 
-function Header({ linkText, linkRoute, logout, place }) {
+function Header({ linkText, linkRoute, logout, place, email }) {
   const [renderOptionsOnTop, setRenderOptionOnTop] = useState(false);
-  const [mediaQuery, setMediaQuery] = useState(window.matchMedia('(min-width: 20rem) and (max-width: 48rem)'))
+  const [mediaQuery, setMediaQuery] = useState(window.matchMedia('(min-width: 20rem) and (max-width: 48rem)'));
 
   const renderOptions = () => {
     if (place === 'home') {
-      return <Link className='tittle header__title' to={linkRoute} onClick={logout}>{linkText}</Link>
+      return <Link className='tittle header__title' to={linkRoute} onClick={logout}>{linkText}</Link>;
     }
     if (place === 'register') {
-      return <Link className='tittle header__title' to={linkRoute}>{linkText}</Link>
+      return <Link className='tittle header__title' to={linkRoute}>{linkText}</Link>;
     }
   }
-  const userInfo = () => place === 'home' ? <p className='subtitle header__title'>{localStorage.getItem('email')}</p> : null
+  const userInfo = () => place === 'home' && <p className='subtitle header__title'>{email}</p>;
 
   const responsibleLayout = () => {
     if (mediaQuery.matches) {
@@ -54,7 +54,7 @@ function Header({ linkText, linkRoute, logout, place }) {
 
   return (
     <>
-      {renderOptionsOnTop ? optionsOnTop() : null}
+      {renderOptionsOnTop && optionsOnTop()}
       <header className='header' >
         <div className='header__container'>
           <img className='logo' alt='Logo Around The U.S.' src={logo} />
