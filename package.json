@@ -20,7 +20,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build --base-href=./ --repo=https://github.com/izaqueIsrael/react-around-auth_ptbr.git"
+    "deploy": "react-scripts build && gh-pages -d build --repo=https://github.com/izaqueIsrael/react-around-auth_ptbr.git --add ./"
   },
   "eslintConfig": {
     "extends": [
@@ -41,6 +41,6 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^5.0.0"
+    "gh-pages": "^5.2.0"
   }
 }
