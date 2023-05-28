@@ -7,7 +7,7 @@ function EditProfilePopup({ className, editIsOpen, setEditIsOpen, editingProfile
   const currentUser = useContext(CurrentUserContext);
   const handleCloseModal = () => setEditIsOpen(!editIsOpen);
   const handleModalOnKeyDown = e => e.key === 'Escape' && setEditIsOpen(false);
-  const { register, formState: { errors }, watch } = useForm({ criteriaMode: 'all', mode: 'onChange' });
+  const { register, formState: { errors, isValid }, watch } = useForm({ criteriaMode: 'all', mode: 'onChange' });
   const nameValue = watch('name');
   const aboutValue = watch('about');
 
@@ -23,7 +23,7 @@ function EditProfilePopup({ className, editIsOpen, setEditIsOpen, editingProfile
               name='name'
               id='name'
               type='text'
-              defaultValue={currentUser.name}
+              placeholder={currentUser.name}
               minLength={2}
               maxLength={40}
               required
@@ -54,7 +54,7 @@ function EditProfilePopup({ className, editIsOpen, setEditIsOpen, editingProfile
               minLength={2}
               maxLength={200}
               required
-              defaultValue={currentUser.about}
+              placeholder={currentUser.about}
               {...register('about', {
                 required: 'Preencha esse campo',
                 minLength: {
@@ -80,7 +80,7 @@ function EditProfilePopup({ className, editIsOpen, setEditIsOpen, editingProfile
       handleCloseModal={handleCloseModal}
       handleModalOnKeyDown={handleModalOnKeyDown}
       setterInApi={editingProfile}
-      errors={errors.name?.message || errors.about?.message}
+      errors={!isValid}
     />
   );
 }
