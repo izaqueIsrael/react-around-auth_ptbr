@@ -2,13 +2,13 @@ import React, { useRef, useState } from 'react';
 import closeButton from '../images/close.png';
 import dotAnimation from '../images/simple_loading.gif';
 
-function PopupWithForm({ errors, formType, className, children, title, buttonText, popupIsOpen, handleModalOnKeyDown, handleCloseModal, setterInApi, currentCard }) {
+function PopupWithForm({ errors, formType, className, children, title, buttonText, popupIsOpen, handleModalOnKeyDown, handleCloseModal, setterInApi, currentCard, reset }) {
   const form = useRef();
   const [sending, setSending] = useState(false);
   const formSubmit = async (e) => {
     e.preventDefault();
     setSending(true);
-    formType === 'delete' ? await setterInApi(currentCard) : await setterInApi(form.current.elements);
+    formType === 'delete' ? await setterInApi(currentCard) : await setterInApi(form.current.elements).then(() => reset && reset());
     handleCloseModal();
     setSending(false);
   }

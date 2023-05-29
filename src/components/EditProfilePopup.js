@@ -7,9 +7,28 @@ function EditProfilePopup({ className, editIsOpen, setEditIsOpen, editingProfile
   const currentUser = useContext(CurrentUserContext);
   const handleCloseModal = () => setEditIsOpen(!editIsOpen);
   const handleModalOnKeyDown = e => e.key === 'Escape' && setEditIsOpen(false);
-  const { register, formState: { errors, isValid }, watch } = useForm({ criteriaMode: 'all', mode: 'onChange' });
+  const { register, formState: { errors, isValid }, reset, watch, setError } = useForm({
+    criteriaMode: 'all',
+    mode: 'onChange',
+    defaultValues: {
+      name: currentUser.name,
+      about: currentUser.about,
+    }
+  });
   const nameValue = watch('name');
   const aboutValue = watch('about');
+
+  const validateInputs = (id) => {
+    const inputNameValue = watch('name');
+    const inputAboutValue = watch('about');
+
+    if (inputNameValue === currentUser.name && inputAboutValue === currentUser.about) {
+      return (false, 'Seu nome e descrição não podem ser iguais aos atuais');
+    }
+    setError(id, null);
+
+    return true;
+  };
 
   return (
     <PopupWithForm
@@ -23,7 +42,7 @@ function EditProfilePopup({ className, editIsOpen, setEditIsOpen, editingProfile
               name='name'
               id='name'
               type='text'
-              placeholder={currentUser.name}
+              defaultValue={currentUser.name}
               minLength={2}
               maxLength={40}
               required
@@ -37,12 +56,12 @@ function EditProfilePopup({ className, editIsOpen, setEditIsOpen, editingProfile
                   value: 40,
                   message: `Esse campo deve ter de 2 a 40 caracteres. Esse campo possui ${nameValue && nameValue.length} dígitos`,
                 },
-                validate: true
+                validate: () => validateInputs('name'),
               })
               }
             />
             <label htmlFor='name' className='form__description form__description_error'>
-              {errors.name?.message && errors.name?.message}
+              {!isValid && errors.name?.message}
             </label>
           </div>
           <div>
@@ -54,7 +73,7 @@ function EditProfilePopup({ className, editIsOpen, setEditIsOpen, editingProfile
               minLength={2}
               maxLength={200}
               required
-              placeholder={currentUser.about}
+              defaultValue={currentUser.about}
               {...register('about', {
                 required: 'Preencha esse campo',
                 minLength: {
@@ -65,11 +84,11 @@ function EditProfilePopup({ className, editIsOpen, setEditIsOpen, editingProfile
                   value: 200,
                   message: `Esse campo deve ter de 2 a 40 caracteres. Esse campo possui ${aboutValue && aboutValue.length} dígitos`,
                 },
-                validate: true,
+                validate: () => validateInputs('about'),
               })}
             />
             <label htmlFor='about' className='form__description form__description_error'>
-              {errors.about?.message && errors.about?.message}
+              {!isValid && errors.about?.message}
             </label>
           </div>
         </>
@@ -81,6 +100,7 @@ function EditProfilePopup({ className, editIsOpen, setEditIsOpen, editingProfile
       handleModalOnKeyDown={handleModalOnKeyDown}
       setterInApi={editingProfile}
       errors={!isValid}
+      reset={reset}
     />
   );
 }

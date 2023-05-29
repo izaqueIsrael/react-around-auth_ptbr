@@ -10,7 +10,7 @@ function AddPlacePopup({ className, addIsOpen, setAddIsOpen, handleAddPlaceClick
   const titleValue = watch('title');
 
   const urlValidate = (url) => {
-    return validator.isURL(url);
+    return validator.isURL(url) || 'Insira um endereço web válido';
   }
 
   return (
