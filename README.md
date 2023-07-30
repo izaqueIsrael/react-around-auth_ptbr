@@ -1,70 +1,81 @@
-# Getting Started with Create React App
+# React Around Auth (PT-BR)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este repositório contém o código-fonte de uma aplicação React com autenticação de usuários. A aplicação permite que os usuários façam login, se registrem, editem seus perfis, adicionem, removam e curtam cartões. O projeto utiliza React Router para gerenciar as rotas da aplicação.
 
-## Available Scripts
+## Instalação
 
-In the project directory, you can run:
+Siga os passos abaixo para configurar e executar o projeto localmente:
 
-### `npm start`
+1. Clone este repositório:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+git clone https://github.com/izaqueIsrael/react-around-auth_ptbr.git
+cd react-around-auth_ptbr
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+2. Instale as dependências:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+npm i 
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. Inicie o servidor de desenvolvimento:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+npm start
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+O aplicativo será executado em http://localhost:3000 no seu navegador.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Dependências
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+O projeto utiliza as seguintes dependências:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- `@testing-library/jest-dom`: Versão ^5.16.5
+- `@testing-library/react`: Versão ^13.4.0
+- `@testing-library/user-event`: Versão ^13.5.0
+- `react`: Versão ^18.2.0
+- `react-dom`: Versão ^18.2.0
+- `react-hook-form`: Versão ^7.44.0
+- `react-router-dom`: Versão ^6.11.2
+- `react-scripts`: Versão 5.0.1
+- `validator`: Versão ^13.9.0
+- `web-vitals`: Versão ^2.1.4
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Funcionalidades
 
-## Learn More
+- Os usuários podem se registrar, fazer login e fazer logout.
+- Os usuários autenticados têm acesso a uma área protegida onde podem editar seus perfis, adicionar, remover e curtir cartões.
+- O aplicativo utiliza a biblioteca `react-hook-form` para a validação dos formulários.
+- A aplicação utiliza a API fornecida pelo servidor para interagir com os dados dos usuários e cartões.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Estrutura do Código
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+O código está organizado nos seguintes componentes principais:
 
-### Code Splitting
+- `App.js`: Componente raiz da aplicação, que gerencia a autenticação do usuário e controla o roteamento da aplicação usando o `react-router-dom`.
+- `contexts/CurrentUserContext.js`: Contexto para gerenciar os dados do usuário autenticado.
+- `hooks/UseApp.js`: Custom hook para gerenciar o estado da aplicação e as requisições à API.
+- `components/Home.js`: Componente da página inicial com a área protegida, onde o usuário pode editar o perfil, adicionar, remover e curtir cartões.
+- `components/Login.js`: Componente para a página de login.
+- `components/Register.js`: Componente para a página de registro.
+- `components/ProtectedRoute.js`: Componente para a criação de rotas protegidas.
+- `components/InfoTooltip.js`: Componente para exibir dicas de informações ao usuário.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Notas
 
-### Analyzing the Bundle Size
+- O aplicativo possui uma área protegida que só é acessível para usuários autenticados.
+- O roteamento é gerenciado pelo `react-router-dom`, o que permite navegar entre diferentes páginas da aplicação.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Contribuição
 
-### Making a Progressive Web App
+Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e enviar pull requests para melhorar este projeto.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Licença
 
-### Advanced Configuration
+Este projeto está licenciado sob a Licença MIT - consulte o arquivo [LICENSE](LICENSE) para obter mais detalhes.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Contato
 
-### Deployment
+Você pode me encontrar no GitHub: [izaqueIsrael](https://github.com/izaqueIsrael).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+---
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Nota**: Este é apenas um exemplo de arquivo README em formato Markdown para o código fornecido. É importante atualizar e personalizar o README de acordo com as necessidades e especificidades do projeto real.
